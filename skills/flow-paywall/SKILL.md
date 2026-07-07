@@ -1,12 +1,12 @@
 ---
 name: flow-paywall
-description: "Use when designing, building, or reviewing pricing pages, paywalls, free trials, subscription upgrade/downgrade flows, cancellation flows, or win-back campaigns. Also use when users report trial-to-paid conversion problems, surprise-charge complaints, App Store subscription rejections, or when auditing for dark patterns and FTC click-to-cancel compliance."
+description: "Use when designing, building, or reviewing pricing pages, paywalls, free trials, subscription upgrade/downgrade flows, cancellation flows, or win-back campaigns. Also use when users report trial-to-paid conversion problems, surprise-charge complaints, App Store subscription rejections, or when auditing for dark patterns and ROSCA and state click-to-cancel compliance."
 ---
 
 # Subscription, Pricing & Paywall Flows
 
 ## Overview
-A paywall converts when the user hits it at a moment of felt value, understands exactly what they pay and when, and trusts they can leave. Extraction tricks — hidden toggles, roach-motel cancellation — raise short-term conversion while destroying LTV, app-store standing, and, post FTC click-to-cancel, legality.
+A paywall converts when the user hits it at a moment of felt value, understands exactly what they pay and when, and trusts they can leave. Extraction tricks — hidden toggles, roach-motel cancellation — raise short-term conversion while destroying LTV, app-store standing, and — under ROSCA and state click-to-cancel laws — legality.
 
 ## When to Use
 - Building a pricing page, in-app paywall screen, trial start, or plan-change flow
@@ -60,8 +60,9 @@ A paywall converts when the user hits it at a moment of felt value, understands 
    - Never silently delete data on downgrade — a read-only lock beats deletion every time.
 
 7. **Cancellation**
-   - Reachable in ≤3 clicks/taps from account settings, fully self-serve, in the same medium as signup. The FTC click-to-cancel rule requires canceling to be as easy as subscribing — no mandatory chat, no phone call, no "contact us."
+   - Reachable in ≤3 clicks/taps from account settings, fully self-serve, in the same medium as signup. ROSCA and state click-to-cancel laws (California and others) require cancellation as easy as signup — the FTC's vacated 2024 rule is being re-proposed and its standard remains the enforcement benchmark: no mandatory chat, no phone call, no "contact us."
    - Flow: visible Cancel button (not gray-on-gray, not buried) → optional one-screen reason survey (skippable) → **one** save offer max → confirm → confirmation screen + email stating the access-until date.
+   - Cancellation takes effect at period end; access continues until the paid-through date — state this on the confirm screen and in the email.
    - Save offers ranked by performance and user goodwill: pause 1–3 months > temporary discount > downgrade to free. Pause converts best and is least resented.
    - Accepted pause states the auto-resume date on confirm and sends a reminder email ~3 days before billing resumes — a silent resume is a hidden-charge complaint waiting to happen.
    - State the refund policy at the confirm step ("No further charges; no refund for the current period" or whatever is true) so nobody has to ask support.
@@ -93,8 +94,8 @@ A paywall converts when the user hits it at a moment of felt value, understands 
 - **Social proof placement:** logos or a single customer quote *below* the pricing cards, never between the toggle and the cards — proof supports the decision; it must not interrupt price comparison.
 
 ## Compliance Floor (non-negotiable)
-- **FTC click-to-cancel (US):** cancel as easy as signup, same medium, no forced retention calls or chats.
-- **Apple Guideline 3.1:** price, duration, and auto-renewal terms visible pre-purchase; Restore Purchases present; external purchase links only where regionally entitled.
+- **US (ROSCA + state law):** ROSCA §5 requires a simple cancellation mechanism; CA and other states mandate click-to-cancel. The FTC's 2024 rule was vacated (8th Cir., July 2025) and is being re-proposed — build to its standard: cancel as easy as signup, same medium, no forced calls/chats.
+- **Apple Guideline 3.1:** price, duration, and auto-renewal terms visible pre-purchase; Restore Purchases present; external purchase links need no entitlement on the US storefront since May 2025 (Guideline 3.1.1(a)), entitlement-gated on other storefronts.
 - **EU consumer law / DSA:** no fake countdowns, no confirmshaming, no pre-ticked add-ons; VAT-inclusive pricing displayed.
 - **Google Play:** parallel requirements — clear pricing and renewal terms pre-purchase, cancellation via Play's subscription center, no misleading trial framing.
 - **Auto-renewal disclosure:** the exact renewal price and date appear at consent and in the receipt email — not only in the ToS.
@@ -128,7 +129,7 @@ A paywall converts when the user hits it at a moment of felt value, understands 
 
 | Anti-pattern | Why it breaks | Fix |
 |---|---|---|
-| Roach motel: sign up online, cancel by phone | FTC click-to-cancel violation; chargebacks; rage | Self-serve cancel, same medium, ≤3 clicks |
+| Roach motel: sign up online, cancel by phone | ROSCA/state-law violation; FTC dark-pattern enforcement; chargebacks | Self-serve cancel, same medium, ≤3 clicks |
 | Hidden auto-renewal / silent trial→paid charge | Refund storms; App Store rejection; legal exposure | Exact charge date at consent + reminder email |
 | Annual price shown as monthly with tiny "billed annually" | Perceived bait-and-switch at checkout | Both numbers adjacent, equal visual weight |
 | Confirmshaming decline copy ("No thanks, I hate saving money") | Documented dark pattern; erodes trust | Neutral decline: "Maybe later" / "No thanks" |
@@ -144,7 +145,7 @@ A paywall converts when the user hits it at a moment of felt value, understands 
 | Silent price increase on renewal | Refunds, chargebacks, regulator attention | Advance notice email with the new price and a cancel link |
 | Treating failed payments as churn | 20–40% of churn is involuntary | Dunning flow: retries + grace period + update-card path |
 | "New customers only" deals shown to subscribers | Cancel-to-rebuy gaming; loyalty resentment | Match or hide promotional pricing for existing users |
-| Cancel button styled to be invisible (gray-on-gray) | Manipulative friction; FTC exposure | Cancel styled like any other secondary action |
+| Cancel button styled to be invisible (gray-on-gray) | Manipulative friction; ROSCA/state-law violation; FTC dark-pattern enforcement | Cancel styled like any other secondary action |
 | Grandfathered pricing revoked without notice | Highest-loyalty users churn angriest | Honor it, or migrate with long notice and a better offer |
 | Trial countdown via daily push notifications | Anxiety marketing; notification-permission revokes | Passive in-app indicator + one email near the end |
 | Proration math hidden until the invoice | Perceived overcharge; support load | Exact prorated amount on the confirm screen |

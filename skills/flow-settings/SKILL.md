@@ -43,7 +43,7 @@ Settings are visited rarely and under a specific goal ("turn off that email," "d
    - Toggles apply instantly, confirmed by the state change itself or a brief toast.
    - Forms (profile fields) use an explicit Save button — disabled until dirty — plus an unsaved-changes guard on navigate-away.
    - Never mix auto-save and explicit-save within the same section; users can't tell what's applied.
-   - Avatar upload gets crop-and-preview plus an initials fallback; username changes warn about consequences ("your profile URL changes; old links redirect for 30 days" — GitHub's rename model).
+   - Avatar upload gets crop-and-preview plus an initials fallback; username changes warn about consequences ("your profile URL changes and old profile links break immediately; repo links redirect until the old username is reclaimed" — GitHub's rename model).
    - Feature surfaces deep-link into settings: the "Manage notifications" link in an email or a nudge lands on that exact settings row, not the settings home.
 
 5. **Email change**
@@ -74,7 +74,7 @@ Settings are visited rarely and under a specific goal ("turn off that email," "d
 
 10. **Delete account — the canonical destructive flow, three gates in order**
    1. **Confirm intent:** a button in the Danger Zone opens a dedicated screen or modal — never a bare "Are you sure?"
-   2. **Show consequences concretely:** "Deletes 3 workspaces, 1,240 documents, and cancels your subscription (paid through Aug 12). This cannot be undone." Enumerate real counts from real data. Offer alternatives on this same screen: export data, downgrade to free, deactivate instead.
+   2. **Show consequences concretely:** "Deletes 3 workspaces and 1,240 documents (subscription paid through Aug 12). This cannot be undone." Enumerate real counts from real data. Apple/Google-billed subscriptions can't be canceled by the developer — link the platform's manage-subscriptions sheet and state the subscription must be canceled there (App Review 5.1.1(v)). Offer alternatives on this same screen: export data, downgrade to free, deactivate instead.
    3. **Type-to-confirm:** the user types their username, email, or the phrase "delete my account" exactly — GitHub's repo-deletion pattern. Typing engages deliberate attention; a checkbox does not. Then re-auth if the session isn't fresh. The submit button is red, labeled with the consequence ("Delete this account"), and disabled until the phrase matches.
    - Afterward: sign out everywhere, send a confirmation email, and ideally hold a 30-day soft-delete grace window with reactivation-by-login. Whichever policy is real, *say it* — faking permanence and faking deletion both destroy trust and invite regulators.
 

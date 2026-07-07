@@ -81,7 +81,7 @@ Never: raw status codes as the headline; blame framing ("You entered an invalid�
 - **Detect and announce once:** a persistent, subtle indicator ("Offline — changes saved on this device"), not a blocking modal and not a re-toasting loop.
 - **Queue mutations locally** with per-item pending state (Linear's offline queue). Persist the queue to local storage/DB — queued writes must survive tab close and app restart.
 - **Keep reads alive from cache.** Never disable the whole app when cached content could render.
-- **On reconnect:** sync automatically, confirm briefly ("Back online — synced"), and surface conflicts explicitly with a pick-a-version UI showing both versions — never silent last-write-wins.
+- **On reconnect:** sync automatically, confirm briefly ("Back online — synced"); auto-merge non-conflicting changes at operation/field level (Figma, Google Docs); show the both-versions picker only for true conflicts on the same content — never silent last-write-wins.
 
 ### Partial failure
 - When a batch half-succeeds, report per-item: "7 of 9 files uploaded · 2 failed — Retry failed items." Never collapse a batch into one merged spinner→error, and never re-run the successes on retry.

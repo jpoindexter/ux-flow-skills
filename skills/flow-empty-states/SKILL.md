@@ -25,9 +25,10 @@ Every list, feed, table, and search result has four non-happy states — first-u
    - Optional secondary link: "Use a template" / "See an example".
    - Proven: Linear seeds sample issues; Notion offers templates; Airbnb's empty wishlist explains the heart icon and links to Explore; Dropbox's empty folder shows upload targets.
    - The CTA must perform the same action as the persistent create control in the chrome — two doors, one room. Users who learn the empty-state button must find the toolbar button identical.
-2. **Cleared empty (user finished or deleted everything).** Celebrate, don't instruct.
-   - "Inbox zero" is an achievement state: Gmail's sun graphic, Todoist's rotating zero-tasks illustrations, Superhuman's rotating wallpaper.
-   - No "create your first X" copy — they know how; that copy now reads as condescending or, worse, implies their data vanished.
+2. **Cleared empty — split by how it emptied.**
+   - **Completed-empty** (tasks/inbox — user finished everything): celebrate. "Inbox zero" is an achievement state: Gmail's sun graphic, Todoist's rotating zero-tasks illustrations, Superhuman's rotating wallpaper.
+   - **Emptied-by-deletion** (docs/projects — user deleted everything): neutral confirmation + create action — no celebration, no beginner copy.
+   - Either way, no "create your first X" copy — they know how; that copy now reads as condescending or, worse, implies their data vanished.
    - Keep the create action in its normal chrome location only.
 3. **No-results empty (search/filter returned nothing).** Never a dead end.
    - Echo the query: "No results for 'invoce'".
@@ -99,7 +100,8 @@ The three canonical thresholds (Nielsen; unchanged since 1993 because they're hu
 | State | Instead of | Write |
 |---|---|---|
 | First-use | "No projects found" | "Create your first project" + CTA |
-| Cleared | "You have 0 tasks" | "All done for today" |
+| Completed-empty | "You have 0 tasks" | "All done for today" |
+| Emptied-by-deletion | "All done for today" | "No documents" + New document |
 | No-results | "No matches" | "No results for 'invoce' — check spelling or clear 3 filters" |
 | Error | "Something went wrong" | "Couldn't load your projects — you're offline. Retry" |
 | Long job | "Processing…" | "Importing 240 of 1,200 contacts — about 2 min left" |
@@ -109,7 +111,8 @@ The three canonical thresholds (Nielsen; unchanged since 1993 because they're hu
 | Situation | Pattern |
 |---|---|
 | New user, zero items ever | First-use empty: benefit headline + create CTA (+ template option) |
-| User completed/cleared all items | Celebration state, no instructions |
+| User completed all items | Celebration state, no instructions |
+| User deleted all items | Neutral confirmation + create action, no celebration |
 | Search/filter → 0 hits | Echo query; did-you-mean; clear-filters with count; broaden |
 | Fetch failed | Distinct error state + Retry; keep stale data visible |
 | Wait < 100ms | No indicator; pressed-state feedback only |

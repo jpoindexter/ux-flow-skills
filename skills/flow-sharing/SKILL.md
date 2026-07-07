@@ -23,9 +23,10 @@ Sharing succeeds when the sharer can answer "who can do what?" at a glance and t
    - Opens a popover or modal scoped to *this object*, never a trip to a settings page.
 
 2. **Share dialog — one dialog, three zones** (the Google Docs model, since converged on by Figma, Notion, and Dropbox)
-   - **Invite row (top):** one combined input accepting emails and names of existing members, multi-entry chips, with a permission dropdown attached to the input. Default role: can-edit for teammates, can-view for external addresses. Optional personal-message field, collapsed by default.
+   - **Invite row (top):** one combined input accepting emails and names of existing members, multi-entry chips, with a permission dropdown attached to the input. Explicit "Invite"/"Send" button — Enter adds a recipient chip, never sends. Default role: can-edit for teammates, can-view for external addresses. Optional "notify people" toggle with a message field, collapsed by default.
    - **People list (middle):** everyone with access — avatar, name/email, per-person permission dropdown that includes "Remove." Owner is marked and immovable. Inherited access shows its source: "Everyone at Acme can view (via Team folder)" — never anonymous magic access.
    - **Link zone (bottom):** general-access control plus a **Copy link** button. Copy link is the highest-traffic action in the dialog — one click, "Link copied" feedback within 100ms, never buried in a submenu.
+   - Viewers and commenters can open the dialog to see who has access; only roles at-or-above their ceiling are offerable.
 
 3. **Link sharing states** — ordered by exposure, defaulting safe:
    1. **Restricted** (default): the link works only for invited people. This must be the default — every leaked-link incident starts with a permissive default.

@@ -12,6 +12,7 @@ LLMs produce plausible-but-wrong UX by default: password field on the first sign
 
 | Skill | Covers |
 |---|---|
+| [`userflow`](skills/userflow/SKILL.md) | **Dispatcher** — `/userflow <what you're building>` picks and loads the right skills below |
 | [`flow-onboarding`](skills/flow-onboarding/SKILL.md) | First-run, activation moments, progressive onboarding, checklists |
 | [`flow-auth`](skills/flow-auth/SKILL.md) | Signup/login, magic links, passkeys, SSO, 2FA, password reset |
 | [`flow-empty-states`](skills/flow-empty-states/SKILL.md) | Empty states as onboarding, skeletons vs spinners, perceived speed |
@@ -76,6 +77,16 @@ Point the agent at the relevant `SKILL.md` as context, or paste it into your sys
 The skills are triggering-condition driven: each `description` says *when* it applies ("Use when designing or reviewing a signup flow…"). A skill-aware agent will pull the right one in when you ask it to build a login screen, a pricing page, a data table. You can also invoke explicitly:
 
 > "Use flow-checkout and build the payment step."
+
+**Or let the dispatcher route for you:**
+
+> `/userflow build a pricing page` · `/userflow new mobile app for tracking workouts` · `/userflow audit our signup`
+
+`userflow` picks the right skills (max 4), applies them, and **generates a `flow-report.html`** — a self-contained, dependency-free page documenting each flow: numbered step cards with primary actions and branches, a screen inventory (including empty/loading/error states), and an anti-pattern audit with PASS/WARN/FAIL verdicts. Open it in a browser, share it, or drop it in the repo as living flow documentation.
+
+## Verification
+
+Every skill was behavior-tested by independent agents: 3 retrieval questions each (45/45 answered unambiguously after fixes), an application test (spec a real screen using only the skill, checked against its own anti-patterns), and a factual audit with sourced corrections (platform rules, regulations, product citations verified as of mid-2026).
 
 ## Contributing
 

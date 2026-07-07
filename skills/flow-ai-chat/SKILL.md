@@ -56,6 +56,7 @@ An AI interface's core job is managing uncertainty: latency you can't predict, o
 - Running: icon + verb + object one-liner ("Searching: EU AI Act fines"). Done: chevron-expandable summary. Failed: inline error state within the step, with its own retry — a failed step must not silently vanish.
 - Nest sub-steps one level maximum; deeper nesting is unreadable in a chat column.
 - Streaming code renders into a code block with language label and copy button from the first fence. File edits show a diff view, not a wall of replacement code (Cursor, v0).
+- Agent runs that modify files create a restorable checkpoint before applying; expose "restore to before this run" alongside the run summary (Cursor).
 - Runs >30 seconds need a persistent progress surface that survives navigating away, plus a completion notification path.
 
 ### Citations

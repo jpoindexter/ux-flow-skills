@@ -24,10 +24,10 @@ Auth is a toll booth, not a destination: minimize fields, decisions, and round-t
    - No password field yet. No "Sign up vs Log in" choice — there are no tabs to pick wrong.
    - Proven: Google, Slack, Notion, Medium, Vercel all use progressive single-field entry.
    - If legacy constraints force separate pages, cross-link both prominently ("Already have an account? Log in").
-2. **Server routing.** Existing account → credential step for that account's method (passkey, password, or code). New email → signup step, silently.
+2. **Server routing.** Existing account → credential step for that account's method (passkey, password, or code). New email → signup step, silently — the same send-a-code screen as login; the user never learns they took a different path.
 3. **Screen 2 — Credential.** Exactly one of:
    - **Passkey** (offer first when the account has one): conditional UI (autofill-style prompt on the email field), one biometric tap, done. Always render a visible fallback ("Use a code instead") — passkeys fail on borrowed/shared devices.
-   - **Magic link + OTP code together**: "We sent a code to j***@x.com" with a 6-digit input. Send BOTH a tappable link and a code in the same email (Slack, Notion, Medium) — links break when email opens on a different device; the code works anywhere. Auto-advance digits, auto-submit on the 6th, `autocomplete=one-time-code`. "Resend" disabled 30s with visible countdown; "Use a different email" link present.
+   - **Magic link + OTP code together**: "We sent a code to j***@x.com" with a 6-digit input. Send BOTH a tappable link and a code in the same email (Slack, Notion, Medium) — links break when email opens on a different device; the code works anywhere. Auto-advance digits, auto-submit on the 6th, `autocomplete=one-time-code`. Code/link valid 5–10 minutes, single-use, with the expiry shown ("Code expires in 9:59"). "Resend" disabled 30s with visible countdown; "Use a different email" link present.
    - **Password** (if that's the account's method): single field, show/hide toggle, "Forgot password?" adjacent to the field (not page bottom), submit on Enter.
 4. **New accounts: nothing else required.** No name, no confirm-password (show/hide replaces it), no CAPTCHA unless abuse signals fire. Profile data belongs to onboarding (see flow-onboarding).
 5. **Preserve intent across the boundary.** The deep link / cart / draft the user was heading to must survive the whole flow — including OAuth redirects and the verification round-trip. Auth that dumps users on a generic dashboard loses the task.
@@ -42,12 +42,13 @@ Auth is a toll booth, not a destination: minimize fields, decisions, and round-t
 | Security-sensitive (fintech) | Passkeys | Password + mandatory 2FA | Yes, with step-up |
 
 - New products in 2026 should treat passwords as the legacy fallback, not the default: passkey-first with email-code fallback covers every device case with less support load.
+- New accounts enroll a passkey via a one-tap prompt immediately after first successful login (never mid-signup); decline is silent, re-offer from settings only.
 - Whatever the stack, one account per email — methods are doors into the same account, never separate accounts.
 
 ### OAuth / SSO specifics
 - 1–3 providers max; each extra button lowers completion and pushes email entry below the fold.
 - "Continue with Google" wording on a combined screen (serves both signup and login). Official brand buttons, full-width, uniform heights.
-- **Apple rule (iOS)**: offering any third-party login requires offering Sign in with Apple.
+- **Apple rule (iOS)**: offering third-party/social login requires also offering a privacy-preserving option (App Review 4.8, relaxed Jan 2024) — Sign in with Apple satisfies it and is the pragmatic default.
 - **Account collision**: OAuth email matches an existing password account → auto-link only when the provider verifies the email; otherwise prompt "This email has a password account — log in to connect Google."
   - Never create a silent duplicate account — duplicates are the top source of "my data disappeared" tickets.
 - **B2B**: detect corporate domains on the email step and auto-route to the org's SAML/SSO (Slack, Notion, Figma pattern).

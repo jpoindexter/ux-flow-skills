@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{PROJECT_NAME}} — User Flow Report</title>
+<style>
+  :root{--ink:#111;--muted:#666;--line:#ddd;--accent:#0b5fff;--ok:#0a7d33;--warn:#b45309;--bad:#b91c1c;--bg:#fafafa;--card:#fff}
+  *{box-sizing:border-box;margin:0}
+  body{font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);padding:48px 24px;max-width:880px;margin:0 auto}
+  h1{font-size:28px;letter-spacing:-.02em}
+  h2{font-size:20px;margin:48px 0 8px;padding-top:24px;border-top:1px solid var(--line)}
+  h3{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:28px 0 12px}
+  .meta{color:var(--muted);font-size:14px;margin:6px 0 4px}
+  .skills{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 0}
+  .chip{font-size:13px;padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+  .flow{list-style:none;padding:0;margin:16px 0}
+  .flow>li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;position:relative}
+  .flow>li+li{margin-top:34px}
+  .flow>li+li::before{content:"";position:absolute;top:-27px;left:32px;width:2px;height:20px;background:var(--accent)}
+  .flow>li+li::after{content:"";position:absolute;top:-12px;left:28px;border:5px solid transparent;border-top-color:var(--accent)}
+  .step-n{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);border:1.5px solid var(--accent);border-radius:999px;padding:1px 9px;margin-right:8px;vertical-align:1px}
+  .step-t{font-weight:650}
+  .step-d{color:var(--muted);font-size:14px;margin-top:6px}
+  .cta{font-size:13px;margin-top:8px}
+  .cta b{color:var(--ok)}
+  .branch{font-size:13px;margin-top:8px;padding:8px 12px;background:#f4f6ff;border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card)}
+  th,td{text-align:left;padding:9px 12px;border:1px solid var(--line);vertical-align:top}
+  th{background:var(--bg);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .pass{color:var(--ok);font-weight:650}.warn{color:var(--warn);font-weight:650}.fail{color:var(--bad);font-weight:650}
+  .overflow{overflow-x:auto}
+  footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  @media print{body{background:#fff;padding:0}.flow>li{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<h1>{{PROJECT_NAME}} — User Flow Report</h1>
+<p class="meta">{{DATE}} · {{SCOPE_ONE_LINER}}</p>
+<div class="skills">
+  <!-- one chip per skill applied -->
+  <span class="chip">{{SKILL_NAME}}</span>
+</div>
+
+<h2>Summary</h2>
+<p>{{SUMMARY — what was designed/reviewed, the key decisions, 2-4 sentences}}</p>
+
+<!-- ══ REPEAT THIS BLOCK PER FLOW ══ -->
+<h2>Flow: {{FLOW_NAME}}</h2>
+<p class="meta">Pattern source: {{SKILL_NAME}} · Entry point: {{WHERE_THE_USER_COMES_FROM}}</p>
+
+<h3>Steps</h3>
+<ol class="flow">
+  <!-- one <li> per screen/step -->
+  <li>
+    <span class="step-n">1</span><span class="step-t">{{SCREEN_OR_STEP_TITLE}}</span>
+    <p class="step-d">{{What's on this screen; what the user sees and does.}}</p>
+    <p class="cta">Primary action: <b>{{CTA_LABEL}}</b> → {{WHERE_IT_LEADS}}</p>
+    <div class="branch">If {{CONDITION}} → {{ALTERNATE_PATH}}</div><!-- omit when no branch -->
+  </li>
+</ol>
+
+<h3>Screen inventory</h3>
+<div class="overflow"><table>
+  <tr><th>Screen</th><th>Purpose</th><th>Primary action</th><th>States (empty/loading/error)</th></tr>
+  <tr><td>{{SCREEN}}</td><td>{{PURPOSE}}</td><td>{{CTA}}</td><td>{{STATES}}</td></tr>
+</table></div>
+
+<h3>Anti-pattern audit</h3>
+<div class="overflow"><table>
+  <tr><th>Check (from {{SKILL_NAME}})</th><th>Verdict</th><th>Note</th></tr>
+  <tr><td>{{ANTI_PATTERN_CHECK}}</td><td class="pass">PASS</td><td>{{NOTE}}</td></tr>
+  <!-- verdict classes: pass / warn / fail -->
+</table></div>
+<!-- ══ END REPEAT ══ -->
+
+<h2>Open questions & parked items</h2>
+<ul>
+  <li>{{ANYTHING_UNRESOLVED — omit section if none}}</li>
+</ul>
+
+<footer>Generated with <a href="https://github.com/jpoindexter/ux-flow-skills">ux-flow-skills</a> · patterns proven by shipped products, audited against each skill's anti-pattern list.</footer>
+
+</body>
+</html>

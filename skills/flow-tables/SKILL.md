@@ -53,6 +53,7 @@ A table is a workspace, not a printout: users scan, sort, select, and act in pla
    - Click-to-edit a cell (Airtable): the cell becomes an input in place; Enter/blur commits, Esc reverts, Tab moves to the next editable cell.
    - Save optimistically; on failure, roll back the cell and show a toast with retry.
    - Reserve inline editing for flat values (text, number, select, date). Anything multi-field opens the detail panel instead.
+   - Precedence: inline-edit tables demote row-open to the identity-column link or an explicit open affordance — never both whole-row-click and cell-edit on the same table.
 8. **Row → detail.**
    - Peek panel (Linear) or push navigation. Selection is reflected in the URL; Back closes the peek.
    - Keyboard ↑↓ or j/k moves selection; Enter opens; the focused row stays scrolled into view.
@@ -63,7 +64,7 @@ A table is a workspace, not a printout: users scan, sort, select, and act in pla
 - **Infinite scroll** — leisure consumption feeds only (social, discovery). Forbidden when there's a footer, bulk actions, or a "find it again" need. Must restore scroll position on back-navigation.
 - **Load-more button** — the safe middle: user-controlled, footer stays reachable, works for search results and mobile lists. Default to this when unsure.
 - Use cursor-based loading under the hood for live data — offset pagination skips or duplicates rows when the data changes between pages.
-- Live-updating feeds don't shove new rows in while the user reads — show a "3 new items" pill at the top that inserts on tap (Twitter/X, Gmail).
+- Live-updating feeds don't shove new rows in while the user reads — show a "3 new items" pill at the top that inserts on tap (Twitter/X; Slack's "new messages" divider is the sibling pattern).
 
 ### Empty, loading, error (all three are mandatory)
 - **First-use empty:** icon/illustration + one line of value + primary CTA — "No invoices yet — Create your first invoice". Never a blank region or a bare "No data".

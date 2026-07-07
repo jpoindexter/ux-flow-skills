@@ -53,6 +53,7 @@ Search is a conversation: the user offers an imperfect query and the system must
    - Multi-select within a facet = OR; across facets = AND. Ranges (price, date) get a dual-handle slider or min/max inputs.
    - Order facets by usage, not alphabet; the top 2–3 facets do most of the narrowing (category, price, availability).
    - Persist query + filters in the URL (`?q=boots&brand=nike&size=10`) — shareable, refresh-safe, back-button-correct.
+   - Facet/chip toggles use replaceState; only new query submissions push a history entry — back returns to the previous query, not through every chip toggle.
 6. **Zero-results recovery — never dead-end.** In order of preference:
    - **Fix it silently:** spell-correct and show corrected results — "Showing results for *sneakers*. Search instead for *snekers*" (Google). Fuzzy matching, stemming, and synonym expansion run before zero is ever shown.
    - **Broaden automatically:** relax the least-important constraint and say so — "No exact matches. Removing *color: green* shows 14 results" — or show partial matches labeled as such (Amazon).

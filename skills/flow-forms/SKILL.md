@@ -44,7 +44,7 @@ Every field costs conversion; every ambiguity costs trust. A form is a conversat
 ### Input mechanics (platform-specific where noted)
 - **Web:** correct `type` (`email`, `tel`, `url`), `inputmode="numeric"` for codes, and `autocomplete` tokens on every field (`given-name`, `postal-code`, `cc-number`, `one-time-code`). Browser autofill is the single biggest form-speed win available; breaking it with custom inputs is self-sabotage.
 - **iOS/Android:** matching keyboard type per field; iOS inputs ≥16px font size or Safari zooms on focus.
-- **Touch targets ≥44px tall** on mobile (Apple HIG floor; Android 48dp).
+- **Touch targets ≥44pt (iOS) / 48dp (Android)** — ~44px CSS on web.
 - **Radio group / segmented control for 2–4 options** — a dropdown hides options that would fit on screen and costs an extra interaction.
 - **Autocomplete combo box for huge lists** (country, bank) — never a 200-item dropdown.
 - **Date of birth:** three plain inputs (DD / MM / YYYY) or one masked field. Never a calendar picker — nobody scrolls to 1987 — and never scroll wheels on web.
@@ -80,6 +80,7 @@ Every field costs conversion; every ambiguity costs trust. A form is a conversat
 | Date, memorable (DOB) | Three plain inputs or masked field — never a calendar |
 | Date, scheduling (delivery day) | Calendar picker is correct here — near-future picking is spatial |
 | Quantity / small number | Stepper or plain numeric input, not a dropdown of 1–10 |
+| File/document upload | State accepted formats + size limit upfront; progress per file; mobile camera-capture option; failed files retryable individually (see flow-errors partial failure) |
 
 ### Accessibility (non-negotiable)
 - Every input has a programmatically associated label (`<label for>` or platform equivalent); hint text linked via `aria-describedby`.

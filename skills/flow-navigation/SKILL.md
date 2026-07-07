@@ -24,7 +24,7 @@ Navigation is a promise about where things live. Pick the pattern that matches p
    - Fixed and always visible; each tab is a top-level *mode* with independent state — switching tabs and returning preserves scroll position and navigation stack.
    - iOS HIG and Material Design both cap at 5. Exceeding 5 means the IA is wrong, not that you need a "More" tab — buried tabs are effectively deleted features.
    - Center tab may be a primary-action button (Instagram's create) only when creation is the app's core loop.
-   - Tapping the active tab scrolls to top; tapping again pops the stack to the tab root (Instagram, Twitter/X convention).
+   - Tapping the active tab pops the stack to the tab root; tapping again (already at root) scrolls to top (UIKit default; Instagram/X convention).
    - Hide the tab bar only inside deep focused tasks (full-screen media, checkout); restore it on return.
    - Proven by Instagram, Spotify, iOS App Store, YouTube.
 2. **Desktop productivity app → left sidebar.**
@@ -84,12 +84,12 @@ Navigation is a promise about where things live. Pick the pattern that matches p
 - Unauthenticated hit on a deep link: send to login, then return to the original destination — never dump the user at home.
 
 ## Layout & Structure
-- **Tab bar (mobile):** 3–5 items; 49pt tall + safe area (iOS), 80dp (Material 3); active state via color + filled icon variant.
+- **Tab bar (mobile):** 3–5 items; 49pt tall + safe area (iOS; iOS 26+: floating Liquid Glass bar, height adapts — 49pt is the docked-bar baseline), 80dp (Material 3); active state via color + filled icon variant.
 - Tab items are icon + short label, always — icon-only fails recognition beyond ~5 universal glyphs (home, search, settings).
 - Touch targets ≥44×44pt (iOS) / 48×48dp (Android) for every nav element.
 - **Sidebar (desktop):** 240–280px expanded, 56–72px collapsed to icons; active item gets a filled background pill, not just a text-color change.
 - Sidebar internal order: search/quick-switcher → pinned/favorites → primary destinations → scrollable spaces/projects → settings + help pinned at bottom.
-- **Drawer (mobile/tablet):** 280–320px over a scrim; hamburger + edge-swipe to open; scrim-tap, swipe, or Esc to close; contents mirror the desktop sidebar exactly.
+- **Drawer (mobile/tablet):** 280–320px (0–40px wider than the 240–280px docked sidebar it mirrors) over a scrim; hamburger + edge-swipe to open; scrim-tap, swipe, or Esc to close; contents mirror the desktop sidebar exactly.
 - **Top nav:** 56–64px tall; logo left → primary items → search → notifications → avatar far right. Max 7 top-level items before consolidating.
 - **Mega-menu:** full-width panel; one column per category with a heading that is itself a link + 4–8 child links; opens on click (never hover-only); closes on Esc and outside click.
 - **Breadcrumbs:** directly under the header, above the page title; `/` or `›` separators; truncate middle segments on narrow screens (`Home / … / Current`).

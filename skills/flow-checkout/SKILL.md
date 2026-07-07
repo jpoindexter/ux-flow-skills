@@ -36,7 +36,7 @@ Checkout is a funnel where every field, click, and surprise costs conversion —
    - Account creation is offered *after* purchase, on the confirmation screen ("Save your info for next time — add a password"). It converts far better there because the user has nothing left to lose.
 
 3. **Shipping**
-   - Email first — this enables abandonment-recovery email even if the user quits on the very next screen.
+   - Email first — the guest gate's email IS the first shipping field, collected once on one screen and never re-asked; it enables abandonment-recovery email even if the user quits on the very next screen.
    - Name as a single full-name field, not first/last.
    - Address with **autocomplete** (Google Places or equivalent): user types 3–5 characters of street, picks from a dropdown, and city/state/zip/country auto-fill.
    - Manual entry always remains available — autocomplete fails on new buildings and rural addresses.
@@ -77,6 +77,7 @@ Checkout is a funnel where every field, click, and surprise costs conversion —
 - **One primary action per screen.** Back, edit, and sign-in are links or ghost buttons, never competing filled buttons.
 - **Field budget:** guest checkout in ≤8 interactions is achievable — email, name, address autocomplete, card ×3. Every added field must justify itself.
 - **Optional fields say why:** phone number labeled "for delivery updates only," marked optional.
+- **Step count:** default to 2–3 steps; go single-page only when the total field budget is ≤8 and express pay dominates.
 - **Progress indicator** for multi-step checkouts: 3–4 labeled steps ("Shipping → Payment → Review"), current step highlighted, completed steps clickable to go back.
 - **Persist state through everything:** back button, refresh, validation error, card decline, 3DS failure. Losing a filled form after a decline is the single most rage-inducing checkout bug.
 - **Inline validation on blur,** not on submit. Errors sit next to the field, red text + icon (never color alone), and state the fix: "Card number is 15 digits — Amex has 15, most cards have 16."
