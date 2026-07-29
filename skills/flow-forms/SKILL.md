@@ -37,7 +37,8 @@ Every field costs conversion; every ambiguity costs trust. A form is a conversat
 
 ### Field discipline
 - **Every field must justify itself against conversion cost.** Baymard: the average checkout can cut roughly half its fields. Defaults to cut: "Confirm email" (echo the typed value prominently instead), "Confirm password" (show-password toggle instead), separate First/Last name where a single "Full name" is legally sufficient, phone number unless you will actually call, company/title fields on consumer products.
-- **Mark optional, not required.** When most fields are required — which should be true — append "(optional)" to the label of the exceptions. Asterisks force users to learn a legend and add noise to every label. If most of your fields are optional, the form is too long.
+- **Run the Question Protocol on every field before it ships** (Silver): why are you asking this, and what happens if you don't get an answer? A registration form doesn't need first name, last name, *and* email to create an account — if you need the name later, ask then. This one habit routinely halves a form's field count without resorting to space-saving tricks. Apply it before reaching for clever UI, not instead of cutting fields.
+- **Mark optional, not required.** When most fields are required — which should be true — append "(optional)" to the label of the exceptions. Asterisks force users to learn a legend and add noise to every label ("optional" beats a symbol nobody can decode without hunting for its legend — Silver, citing Luke Wroblewski). If most of your fields are optional, the form is too long.
 - **Progressive profiling:** anything not needed to complete *this* transaction moves to a later, contextual ask.
 - **Never pre-check** consent, marketing, or add-on checkboxes. Pre-select only genuinely most-common neutral options (country from locale, standard shipping).
 
@@ -57,14 +58,19 @@ Every field costs conversion; every ambiguity costs trust. A form is a conversat
 - Never split to make each screen "feel simple" while tripling total taps — steps must map to real topic boundaries.
 
 ### Wizard mechanics
-- **Progress indicator for ≥3 steps:** labeled steps ("2 of 4 — Payment"), current step visually distinct, completed steps clickable to revisit where safe. Unlabeled numbered dots help nobody.
-- **Step count honesty:** conditional steps shouldn't make the total jump around; show ranges or recount silently, never "step 3 of 7" becoming "3 of 11."
+- **Default to no progress bar; earn it with research.** Silver: GOV.UK's Carer's Allowance team removed a 12-step progress bar with no effect on completion rates or time. A visual bar costs mobile screen space, is hard to make accessible in a small viewport, and actively lies once the flow branches — a bar that promises "4 steps" can't honestly represent a path that skips payment for in-store collection. Ship the flow without one first; add it only if usability testing shows users get lost.
+- **If you do add one, put the step text in the heading first**, cheaper and more accessible than a bar: `<h1>Payment (Step 3 of 4)</h1>` (Silver). If research justifies a visual bar too, keep the step text inside the `<h1>` (visually hidden via a `.visually-hidden` class, not `display:none`) so screen readers get it, and mark the decorative bar `aria-hidden="true"` so it isn't announced twice.
+- **Progress indicator for ≥3 steps, once justified:** labeled steps ("2 of 4 — Payment"), current step visually distinct, completed steps clickable to revisit where safe. Unlabeled numbered dots help nobody.
+- **Step count honesty:** conditional steps shouldn't make the total jump around; show ranges or recount silently, never "step 3 of 7" becoming "3 of 11" — this is exactly the branching problem that makes progress bars misleading in the first place.
 - **Save-and-resume for any form >5 minutes** or requiring documents: autosave per step, an explicit "Save and finish later" exit, and a return path (emailed link or account draft). Government applications and Typeform respondent resume prove the pattern.
 - **Session expiry mid-form:** re-authenticate in place and return the user to the intact form. A login redirect that discards 20 minutes of entry is a top rage trigger.
 
 ### Error message anatomy (see also flow-errors)
 - State what's wrong in the user's terms + how to fix it: "Card number must be 16 digits — you entered 15." Never "Invalid input," never the validation rule name, never blame framing.
 - Error text sits directly below its field, colored + icon-marked (never color alone), and is programmatically linked to the input.
+- **Write one error string that works in both places** (Silver): the same message appears inline and in the top error summary, so don't split effort maintaining two versions. "Enter an 'at' symbol" only makes sense next to the field; "Your email address needs an 'at' symbol" reads correctly standalone in a summary too — write the second form.
+- **Silver's checklist for the words themselves:** be concise (no filler, no lost clarity); be consistent (same tone, words, punctuation throughout); be specific ("The email is invalid" blames the user for an ambiguous fault — "The email needs an 'at' symbol" names the fix); avoid jargon words like *invalid*, *forbidden*, *mandatory*; skip brand voice and humor in error copy; use active/imperative voice ("Enter your name," not "First name must be entered"); never open with "Please" — it reads as polite but is filler that implies a choice the user doesn't have.
+- Don't fabricate ambiguity to protect security: a login form that shows "the username and password don't match" when only the password is wrong is unhelpful theater — say "the password doesn't correspond to your username" instead (Silver). You can decline to confirm which username exists without punishing users with a useless error.
 
 ### Per-field playbook
 | Field | Rules |
@@ -81,6 +87,7 @@ Every field costs conversion; every ambiguity costs trust. A form is a conversat
 | Date, scheduling (delivery day) | Calendar picker is correct here — near-future picking is spatial |
 | Quantity / small number | Stepper or plain numeric input, not a dropdown of 1–10 |
 | File/document upload | State accepted formats + size limit upfront; progress per file; mobile camera-capture option; failed files retryable individually (see flow-errors partial failure) |
+| Notes / long text (textarea) | Never hard-truncate at `maxlength` — users typing without looking up will find half their entry silently cut. Let them type freely and show a character countdown instead ("You have 100 characters remaining"), updated in a polite live region (`aria-live="polite"` or `role="status"`) announced only when typing pauses, not per keystroke (Silver's character-countdown pattern) |
 
 ### Accessibility (non-negotiable)
 - Every input has a programmatically associated label (`<label for>` or platform equivalent); hint text linked via `aria-describedby`.
@@ -132,7 +139,7 @@ Every field costs conversion; every ambiguity costs trust. A form is a conversat
 | Back button loses wizard data | Forced re-entry; most abandon instead | Persist per-step on every transition |
 | Asterisk on every required field | Legend tax, visual noise | Mark optional fields only |
 | Two-column field layout | Skipped fields, broken order (Baymard) | Single column; inline-pair only coupled shorts |
-| Disabled submit with no explanation | User can't discover what's missing | Enabled submit → validate → error summary |
+| Disabled submit with no explanation | User can't discover what's missing; disabled buttons are also unfocusable, so screen-reader/keyboard users tabbing through can't even find it (Silver) | Enabled submit → validate → error summary |
 | "Step 3 of 12," unlabeled dots | Feels endless; no sense of what's left | Fewer, labeled steps + upfront time estimate |
 | Dropdown for 2–4 options | Hides options that fit on screen | Radio group / segmented control |
 | Rejecting paste in password/OTP fields | Blocks password managers and autofill | Always allow paste |
@@ -148,4 +155,4 @@ Every field costs conversion; every ambiguity costs trust. A form is a conversat
 | Unsaved-changes prompt on an unchanged form | Cried-wolf warnings get dismissed | Dirty-check before warning |
 | Success page with no next step | Dead end at peak engagement | Confirmation + reference + single next action |
 
-Proven by: GOV.UK Design System (one-thing-per-page, error summary, check-your-answers, start pages), Stripe Checkout (validation timing, autofill, field minimalism), Typeform (one-question flow, resume), Baymard Institute checkout research (single column, field-count reduction, label placement).
+Proven by: GOV.UK Design System (one-thing-per-page, error summary, check-your-answers, start pages), Stripe Checkout (validation timing, autofill, field minimalism), Typeform (one-question flow, resume), Baymard Institute checkout research (single column, field-count reduction, label placement), Adam Silver's *Form Design Patterns* (New Riders/Smashing Magazine, 2018) — question protocol, error-copy craft, progress-bar skepticism, character countdown, login error phrasing.

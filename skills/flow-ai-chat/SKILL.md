@@ -83,6 +83,11 @@ An AI interface's core job is managing uncertainty: latency you can't predict, o
 - Voice input is a first-class composer affordance on mobile, not buried in settings.
 - Streaming must not fight the on-screen keyboard: opening the keyboard keeps the latest message visible.
 
+### Tone and persona
+- An assistant should be **deferential without being fawning.** Josh Clark's framing: deferential is not flirty, not fawning, not feminine-by-default — don't dress an agent in a submissive or performative persona to make deference legible. State the boundary or the uncertainty plainly instead of apologizing around it.
+- Treat the assistant as there to **empower the user's judgment, not just assist** (Clark) — the tone should read as capability handed to the user, not a service performing helpfulness at them. This is why "Whoops, my bad! 😅" (below) fails: it performs personality where the user needed a plain cause and a retry.
+- Output is a **signal, not a fact** (Clark, citing Bender et al.'s "stochastic parrots" framing): a fluent response is not the same as a correct one, and the UI's job is to keep that distinction visible rather than let confident phrasing borrow authority the model didn't earn. This is the same instinct behind hedges and "as of" markers above — extend it to word choice, not just chrome.
+
 ### Feedback & quality signals
 - Thumbs up/down on assistant messages, with an optional one-tap reason on the downvote ("inaccurate", "didn't follow instructions"). Never a mandatory free-text form — friction kills the signal.
 - Show which model/version answered when users can choose models; silent model switches break users' calibration of what to trust.
@@ -148,4 +153,4 @@ An AI interface's core job is managing uncertainty: latency you can't predict, o
 | Unsearchable, untitled history | Past work is unfindable, so it's redone | Auto-titles + search + pinning |
 | Silent model downgrade under load | Users misattribute quality drop to themselves | Label the model per response; announce switches |
 
-Proven by: ChatGPT (streaming, stop, regenerate versions, prompt suggestions), Claude (tool-use blocks, context chips, artifacts), Perplexity (citations, source cards), Cursor (agent steps, diff previews, command approval), v0 (generation progress, streamed code/preview).
+Proven by: ChatGPT (streaming, stop, regenerate versions, prompt suggestions), Claude (tool-use blocks, context chips, artifacts), Perplexity (citations, source cards), Cursor (agent steps, diff previews, command approval), v0 (generation progress, streamed code/preview), Josh Clark's *Sentient Design* (tone/persona framing — deferential vs. fawning, signals not facts).
